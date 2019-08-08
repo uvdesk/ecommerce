@@ -1,0 +1,6 @@
+uvdesk_ecommerce_integrate_ticket_order_details:
+    path:     /package/uvdesk/ecommerce/api/integrate-orders/{id}
+    controller: UVDesk\CommunityPackages\UVDesk\ECommerce\Controller\TicketExtension::integrateECommerceOrderDetails
+    methods: [POST, PUT]
+    requirements:
+        ticketId: '\d+'
