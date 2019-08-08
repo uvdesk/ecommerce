@@ -1,0 +1,17 @@
+{
+    "name": "uvdesk/ecommerce",
+    "description": "The eCommerce package brings various ecommerce related functionalities to your community helpdesk system.",
+    "type": "uvdesk-module",
+    "authors": [
+        {
+            "name": "Akshay Kumar",
+            "email": "akshay.kumar758@webkul.com"
+        }
+    ],
+    "autoload": {
+        "UVDesk\\CommunityPackages\\UVDesk\\ECommerce\\": ""
+    },
+    "package": {
+        "UVDesk\\CommunityPackages\\UVDesk\\ECommerce\\ECommercePackage": ["all"]
+    }
+}

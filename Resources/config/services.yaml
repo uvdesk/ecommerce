@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+    
+    _instanceof:
+        UVDesk\CommunityPackages\UVDesk\ECommerce\Utils\ECommercePlatformInterface:
+            lazy: true
+            tags: [UVDesk\CommunityPackages\UVDesk\ECommerce\Utils\ECommercePlatformInterface]
+    
+    UVDesk\CommunityPackages\UVDesk\ECommerce\:
+        resource: '../../*'
+    
+    UVDesk\CommunityPackages\UVDesk\ECommerce\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+    
