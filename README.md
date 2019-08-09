@@ -23,4 +23,4 @@ $ php bin/console doctrine:migrations:diff
 $ php bin/console doctrine:migrations:migrate
 ```
 
-This command will automatically search and configure any available packages found within the apps directory. Once your packages have been configured successfully, they are ready for use.
+These commands will automatically search and configure any available packages found within the apps directory. Once your packages have been configured successfully, they are ready for use.
