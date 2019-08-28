@@ -35,36 +35,46 @@ class TicketExtension
 
         $eCommerceOrderDetails = $eCommerceChannel->fetchECommerceOrderDetails((array) $params['orderId']);
         
-        $ticketRepository = $entityManager->getRepository('UVDeskCoreFrameworkBundle:Ticket');
-        $eCommerceOrderRepository = $entityManager->getRepository('UVDeskECommercePackage:ECommerceOrderDetails');
+        if(!empty($eCommerceOrderDetails['orders'])) {
+            $ticketRepository = $entityManager->getRepository('UVDeskCoreFrameworkBundle:Ticket');
+            $eCommerceOrderRepository = $entityManager->getRepository('UVDeskECommercePackage:ECommerceOrderDetails');
+    
+            $ticket = $ticketRepository->findOneById($id);
+    
+            // // Retrieve any existing ticket order else create one
+            // $existingOrders = $eCommerceOrderRepository->findByTicket($ticket);
+    
+            // if (empty($existingOrders)) {
+            //     $orderExistsFlag = 1;
+            // }
+    
+            $ecommerceOrder = new ECommerceOrderDetails();
+    
+            // Set ECom. Order Details
+            $ecommerceOrder->setTicket($ticket);
+            $ecommerceOrder->setOrderId($params['orderId']);
+            $ecommerceOrder->setOrderDetails(json_encode($eCommerceOrderDetails));
+    
+            $entityManager->persist($ecommerceOrder);
+            $entityManager->flush();
+    
+            // Setup Response
+            $response = [
+                'success' => true,
+                'orderDetails' => $eCommerceOrderDetails,
+                'alertClass' => 'success',
+                'alertMessage' => 'Success! Order updated successfully.',
+                'collectedOrders' => $params['orderId'],
+            ];
 
-        $ticket = $ticketRepository->findOneById($id);
-
-        // // Retrieve any existing ticket order else create one
-        // $existingOrders = $eCommerceOrderRepository->findByTicket($ticket);
-
-        // if (empty($existingOrders)) {
-        //     $orderExistsFlag = 1;
-        // }
-
-        $ecommerceOrder = new ECommerceOrderDetails();
-
-        // Set ECom. Order Details
-        $ecommerceOrder->setTicket($ticket);
-        $ecommerceOrder->setOrderId($params['orderId']);
-        $ecommerceOrder->setOrderDetails(json_encode($eCommerceOrderDetails));
-
-        $entityManager->persist($ecommerceOrder);
-        $entityManager->flush();
-
-        // Setup Response
-        $response = [
-            'success' => true,
-            'orderDetails' => $eCommerceOrderDetails,
-            'alertClass' => 'success',
-            'alertMessage' => 'Success! Order updated successfully.',
-            'collectedOrders' => $params['orderId'],
-        ];
+        } else {
+            // Setup Response
+            $response = [
+                'error' => true,
+                'alertClass'   => "error",
+                'alertMessage' => "Warning! order with given orderId doesn't exist."
+            ];
+        }
 
         return new JsonResponse($response);
     }
