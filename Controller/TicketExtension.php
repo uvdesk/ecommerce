@@ -36,7 +36,7 @@ class TicketExtension
         $requestOrderCollection = array_map('trim', explode(',', $params['orderId']));
         $eCommerceOrderDetails = $eCommerceChannel->fetchECommerceOrderDetails((array) $requestOrderCollection);
 
-        if(!empty($eCommerceOrderDetails['orders'])) {
+        if (!empty($eCommerceOrderDetails['orders'])) {
             $ticketRepository = $entityManager->getRepository('UVDeskCoreFrameworkBundle:Ticket');
             $eCommerceOrderRepository = $entityManager->getRepository('UVDeskECommercePackage:ECommerceOrderDetails');
 
@@ -44,14 +44,15 @@ class TicketExtension
             $attachedTicketEntries = $eCommerceOrderRepository->findByTicket($ticket);
             
             // Remove previous ticket entries
-            if(!empty($attachedTicketEntries)){
-                foreach($attachedTicketEntries as $attachedTicket) {
+            if (!empty($attachedTicketEntries)) {
+                foreach ($attachedTicketEntries as $attachedTicket) {
                     $entityManager->remove($attachedTicket);
                 }
             }
            
             foreach ($eCommerceOrderDetails['orders'] as $order) {
                 $ecommerceOrder = new ECommerceOrderDetails();
+
                 // Set ECom. Order Details
                 $ecommerceOrder->setTicket($ticket);
                 $ecommerceOrder->setOrderId($order['id']);
@@ -61,6 +62,7 @@ class TicketExtension
             }
 
             $entityManager->flush();
+            
             // Setup Response
             $response = [
                 'success' => true,
