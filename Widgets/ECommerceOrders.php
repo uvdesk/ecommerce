@@ -46,14 +46,16 @@ SVG;
 
         foreach ($this->eCommerceConfiguration->getECommercePlatforms() as $eCommercePlatform) {
             foreach ($eCommercePlatform->getECommerceChannelCollection() as $eCommerceChannel) {
-                $eCommerceChannelCollection[] = [
-                    'id' => $eCommerceChannel->getId(),
-                    'name' => $eCommerceChannel->getName(),
-                    'platform' => [
-                        'id' => $eCommercePlatform->getQualifiedName(),
-                        'name' => $eCommercePlatform->getName(),
-                    ],
-                ];
+               if($eCommerceChannel->getIsEnabled() == true) {
+                    $eCommerceChannelCollection[] = [
+                        'id' => $eCommerceChannel->getId(),
+                        'name' => $eCommerceChannel->getName(),
+                        'platform' => [
+                            'id' => $eCommercePlatform->getQualifiedName(),
+                            'name' => $eCommercePlatform->getName(),
+                        ],
+                    ];
+               }
             }
         }
 
