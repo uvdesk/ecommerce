@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use UVDesk\CommunityPackages\UVDesk\ECommerce\ECommerce;
 use UVDesk\CommunityPackages\UVDesk\ECommerce\Entity\ECommerceOrderDetails;
+use Webkul\UVDesk\CoreFrameworkBundle\Entity\Ticket;
 
 class TicketExtension
 {
