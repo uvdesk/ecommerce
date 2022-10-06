@@ -7,6 +7,8 @@ use Twig\Environment as TwigEnvironment;
 use Symfony\Component\HttpFoundation\RequestStack;
 use UVDesk\CommunityPackages\UVDesk\ECommerce\ECommerce;
 use Webkul\UVDesk\CoreFrameworkBundle\Tickets\WidgetInterface;
+use UVDesk\CommunityPackages\UVDesk\ECommerce\Entity\ECommerceOrderDetails;
+use Webkul\UVDesk\CoreFrameworkBundle\Entity\Ticket;
 
 class ECommerceOrders implements WidgetInterface
 {
@@ -60,9 +62,9 @@ SVG;
         }
 
         $ticketId = $request->get('ticketId');
-        $ticket = $this->entityManager->getRepository('UVDeskCoreFrameworkBundle:Ticket')->findOneById($ticketId);
-        $eCommerceOrders = $this->entityManager->getRepository('UVDeskECommercePackage:ECommerceOrderDetails')->findByTicket($ticket);
-
+        $ticket = $this->entityManager->getRepository(Ticket::class)->findOneById($ticketId);
+        $eCommerceOrders = $this->entityManager->getRepository(ECommerceOrderDetails::class)->findByTicket($ticket);
+        
         return $this->twig->render('@_uvdesk_extension_uvdesk_ecommerce/widgets/ecommerce-orders.html.twig', [
             'id' => $request->get('ticketId'),
             'eCommerceChannelCollection' => $eCommerceChannelCollection,

@@ -37,8 +37,8 @@ class TicketExtension
         $eCommerceOrderDetails = $eCommerceChannel->fetchECommerceOrderDetails((array) $requestOrderCollection);
 
         if (!empty($eCommerceOrderDetails['orders'])) {
-            $ticketRepository = $entityManager->getRepository('UVDeskCoreFrameworkBundle:Ticket');
-            $eCommerceOrderRepository = $entityManager->getRepository('UVDeskECommercePackage:ECommerceOrderDetails');
+            $ticketRepository = $entityManager->getRepository(Ticket::class);
+            $eCommerceOrderRepository = $entityManager->getRepository(ECommerceOrderDetails::class);
 
             $ticket = $ticketRepository->findOneById($id);
             $attachedTicketEntries = $eCommerceOrderRepository->findByTicket($ticket);
