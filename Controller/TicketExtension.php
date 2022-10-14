@@ -69,7 +69,7 @@ class TicketExtension
                 'success' => true,
                 'orderDetails' => $eCommerceOrderDetails,
                 'alertClass' => 'success',
-                'alertMessage' => 'Success! Order updated successfully.',
+                'alertMessage' => 'Success! Order Added to the ticket.',
                 'collectedOrders' => $params['orderId'],
             ];
         } else {
